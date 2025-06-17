@@ -6,17 +6,15 @@ module ProgramCounter #(parameter WIDTH = 4) (
     input pc_enable,
     input pc_load,
     input [WIDTH-1:0] pc_in,
-    output reg [WIDTH-1:0] pc_out
+    output reg [WIDTH-1:0] pc_out = 0
     );
     
-    always @(posedge clk or posedge reset) begin
+    always @(posedge clk) begin
         if(reset)
-            pc_out <= {WIDTH{1'b0}};
+            pc_out <= 0;
         else if(pc_load)
             pc_out <= pc_in;
         else if(pc_enable)
             pc_out <= pc_out + 1;
-        else
-            pc_out <= pc_out;
     end
 endmodule
